@@ -1,4 +1,5 @@
 import React from 'react'
+import { Icon, IIconProps } from '../../atoms/icon/Icon';
 
 export interface IInputProps {
     id: string;
@@ -7,16 +8,23 @@ export interface IInputProps {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
     onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
-    label?: string;
+    label?: React.ReactElement | string;
     disabled?: boolean;
-    placeholder?: string
+    placeholder?: string;
+    extraContent?: React.ReactElement;
+    icon?: IIconProps
 }
 
-export const Input: React.FC<IInputProps> = ({ id, name, disabled, placeholder, onChange, onBlur, onFocus, value, label }) => {
+export const Input: React.FC<IInputProps> = ({ id, name, icon, disabled, extraContent, placeholder, onChange, onBlur, onFocus, value, label }) => {
+    const dir = (typeof window !== "undefined") && (document.body.dir == "" || document.body.dir == "ltr");
     return (
         <div className={`${disabled ? "opacity-60" : ""}`}>
             {label && <label className='text-xs font-semibold' htmlFor={name}>{label}</label>}
             <div className='border px-2 py-1 mt-1.5 items-center justify-center rounded-md flex'>
+                {icon &&
+                    <div className={`h-full flex justify-center items-center p${dir ? "r" : "l"}-2`}>
+                        <Icon {...icon} />
+                    </div>}
                 <input
                     className='w-full h-full'
                     placeholder={placeholder}
@@ -27,6 +35,7 @@ export const Input: React.FC<IInputProps> = ({ id, name, disabled, placeholder, 
                     onBlur={onBlur}
                     onChange={onChange}
                     value={value} />
+                {extraContent && extraContent}
             </div>
         </div>
     )
