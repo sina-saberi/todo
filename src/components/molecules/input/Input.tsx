@@ -16,13 +16,12 @@ export interface IInputProps {
 }
 
 export const Input: React.FC<IInputProps> = ({ id, name, icon, disabled, extraContent, placeholder, onChange, onBlur, onFocus, value, label }) => {
-    const dir = (typeof window !== "undefined") && (document.body.dir == "" || document.body.dir == "ltr");
     return (
         <div className={`${disabled ? "opacity-60" : ""}`}>
             {label && <label className='text-xs font-semibold' htmlFor={name}>{label}</label>}
             <div className='border px-2 py-1 mt-1.5 items-center justify-center rounded-md flex'>
                 {icon &&
-                    <div className={`h-full flex justify-center items-center p${dir ? "r" : "l"}-2`}>
+                    <div className={`h-full flex justify-center items-center pr-2`}>
                         <Icon {...icon} />
                     </div>}
                 <input

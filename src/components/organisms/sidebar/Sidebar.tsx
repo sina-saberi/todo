@@ -9,7 +9,7 @@ interface ISidebar {
 
 export const Sidebar: React.FC<ISidebar> = ({ }) => {
     return (
-        <div className=''>
+        <div className={`border-r w-max`}>
             <div>
                 Templates:
                 <div>
